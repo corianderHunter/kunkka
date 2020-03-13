@@ -24,7 +24,6 @@ const App: React.FC = () => {
           <SideSwiper
             size={size}
             onSwiper={d => {
-              console.log(d, SwiperDirection.RIGHT);
               if (d === SwiperDirection.RIGHT) {
                 setLeftVisible(true);
               } else if (d === SwiperDirection.LEFT) {
