@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {SafeAreaView, View, Text, StatusBar} from 'react-native';
 import Drawer, {SideSwiper} from './Drawer';
-import {SwiperDirection} from './Drawer/constants';
+import {SwiperDirection, Direction} from './Drawer/constants';
 
 const App: React.FC = () => {
   const [size, setSize] = useState({width: 0, height: 0});
@@ -56,7 +56,7 @@ const App: React.FC = () => {
             left
           </Text>
           <Drawer
-            from="left"
+            from={Direction.LEFT}
             show={leftVisible}
             onPressMask={() => {
               setLeftVisible(false);
@@ -69,7 +69,7 @@ const App: React.FC = () => {
             </Text>
           </Drawer>
           <Drawer
-            from="right"
+            from={Direction.RIGHT}
             show={rightVisible}
             onPressMask={() => {
               setRightVisible(false);
@@ -82,7 +82,7 @@ const App: React.FC = () => {
             </Text>
           </Drawer>
           <Drawer
-            from="top"
+            from={Direction.TOP}
             show={topVisible}
             onPressMask={() => {
               setTopVisible(false);
@@ -95,7 +95,7 @@ const App: React.FC = () => {
             </Text>
           </Drawer>
           <Drawer
-            from="bottom"
+            from={Direction.BOTTOM}
             show={bottomVisible}
             onPressMask={() => {
               setBottomVisible(false);
