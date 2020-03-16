@@ -33,7 +33,8 @@ const App: React.FC = () => {
               } else if (d === SwiperDirection.TOP) {
                 setBottomVisible(true);
               }
-            }}></SideSwiper>
+            }}
+          />
           <Text
             style={{margin: 10, fontSize: 20, fontWeight: '700'}}
             onPress={() => setTopVisible(true)}>

@@ -195,7 +195,7 @@ const gestureHook = ({
   return {gesture, panReponder};
 };
 
-const defaultBoundary = 120; //响应侧边滑动的最大尺寸
+const defaultBoundary = 120; // 响应侧边滑动的最大尺寸
 
 export interface SideSwiperCreatorArgs {
   size: {width?: number; height?: number};

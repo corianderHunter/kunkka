@@ -1,0 +1,25 @@
+{
+  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
+  "rules": {
+    "max-line-length": {
+      "options": [120]
+    },
+    "interface-name": false,
+    "quotemark": false,
+    "prefer-for-of": false,
+    "trailing-comma": false,
+    "no-bitwise": false,
+    "object-literal-sort-keys": false,
+    "member-ordering": false,
+    "no-empty-interface": false,
+    "jsx-no-lambda": false,
+    "no-console": ["log", "error"],
+    "no-shadowed-variable": false
+  },
+  "jsRules": {
+    "max-line-length": {
+      "options": [120]
+    },
+    "object-literal-sort-keys": false
+  }
+}

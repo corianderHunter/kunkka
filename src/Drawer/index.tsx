@@ -23,7 +23,7 @@ interface DrawerPropsType {
 
 const defaultSize = 300;
 const defaultDuration = 300;
-const defaultMaxHidenRatio = 0.5; //Drawer跟随手势的最大临界比例  超过 则手势结束后  隐藏
+const defaultMaxHidenRatio = 0.5; // Drawer跟随手势的最大临界比例  超过 则手势结束后  隐藏
 
 const Drawer: React.FC<DrawerPropsType> = ({
   show = false,
@@ -57,7 +57,7 @@ const Drawer: React.FC<DrawerPropsType> = ({
   const distance = useMemo(() => {
     LayoutAnimation.easeInEaseOut();
     if (!size) {
-      return -2000; //设置一个足够大的尺寸
+      return -2000; // 设置一个足够大的尺寸
     }
     if (show) {
       return 0;
@@ -111,7 +111,7 @@ const Drawer: React.FC<DrawerPropsType> = ({
     onPressMask();
   };
 
-  //Drawer 手势跟随
+  // Drawer 手势跟随
   const {translateY, translateX} = useMemo(() => {
     if (from === Direction.TOP) {
       return {
@@ -272,7 +272,8 @@ export const SideSwiper = ({
   return (
     <View
       {...sideSwiperReponder.panHandlers}
-      style={{...StyleSheet.absoluteFillObject}}></View>
+      style={{...StyleSheet.absoluteFillObject}}
+    />
   );
 };
 

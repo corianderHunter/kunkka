@@ -9,7 +9,8 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "tslint": "tslint \"src/**/*.{ts,tsx}\"  --fix",
+    "format": "prettier \"src/**/*.{ts,tsx,less,css}\" --write"
   },
   "dependencies": {
     "react": "16.9.0",
@@ -29,6 +30,9 @@
     "jest": "^25.1.0",
     "metro-react-native-babel-preset": "^0.58.0",
     "react-test-renderer": "16.9.0",
+    "tslint": "^6.1.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-react": "^4.2.0",
     "typescript": "^3.8.3"
   },
   "jest": {
