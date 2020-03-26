@@ -1,4 +1,4 @@
-import {useMemo} from 'react';
+import {useMemo, ReactNode} from 'react';
 import {
   GestureResponderEvent,
   PanResponder,
@@ -202,6 +202,7 @@ export interface SideSwiperCreatorArgs {
   onSwiper: (direction: SwiperDirection) => void;
   config?: GestureArgs;
   boundary?: number;
+  children?: ReactNode;
 }
 
 export const sideSwiperCreator = ({

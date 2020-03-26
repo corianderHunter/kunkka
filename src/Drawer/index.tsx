@@ -259,6 +259,7 @@ export const SideSwiper = ({
   onSwiper,
   config,
   boundary,
+  children,
 }: SideSwiperCreatorArgs) => {
   if (!size) return null;
   const {sideSwiperReponder} = useMemo(() => {
@@ -272,8 +273,13 @@ export const SideSwiper = ({
   return (
     <View
       {...sideSwiperReponder.panHandlers}
-      style={{...StyleSheet.absoluteFillObject}}
-    />
+      style={{
+        ...StyleSheet.absoluteFillObject,
+        borderWidth: 1,
+        borderColor: 'red',
+      }}>
+      {children}
+    </View>
   );
 };
 
