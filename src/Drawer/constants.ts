@@ -6,12 +6,12 @@ export enum ZIndex {
   E,
   F,
   G,
-  H,
+  H
 }
 
 export enum GestureStatus {
   ACTIVE,
-  SLIENCE,
+  SLIENCE
 }
 
 export enum SwiperDirection {
@@ -19,12 +19,12 @@ export enum SwiperDirection {
   TOP,
   RIGHT,
   BOTTOM,
-  LEFT,
+  LEFT
 }
 
 export enum Direction {
   TOP = 'top',
   RIGHT = 'right',
   BOTTOM = 'bottom',
-  LEFT = 'left',
+  LEFT = 'left'
 }

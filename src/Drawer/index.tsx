@@ -2,14 +2,14 @@ import {
   Animated,
   Keyboard,
   LayoutAnimation,
+  StyleSheet,
   TouchableWithoutFeedback,
   View,
-  StyleSheet,
 } from 'react-native';
 
 import React, {useEffect, useMemo, useState} from 'react';
 import {ScrollView} from 'react-native-gesture-handler';
-import {ZIndex, SwiperDirection, Direction} from './constants';
+import {Direction, SwiperDirection, ZIndex} from './constants';
 import gestureHook, {sideSwiperCreator, SideSwiperCreatorArgs} from './helper';
 interface DrawerPropsType {
   show: boolean;
@@ -220,6 +220,8 @@ const Drawer: React.FC<DrawerPropsType> = ({
         position: 'absolute',
         top: 0,
         left: 0,
+        borderWidth: 1,
+        overflow: 'hidden',
       }}>
       <TouchableWithoutFeedback onPress={onPressMaskInner}>
         <View style={{backgroundColor: 'rgba(0,0,0,0.5)', flex: 1}} />
@@ -261,7 +263,9 @@ export const SideSwiper = ({
   boundary,
   children,
 }: SideSwiperCreatorArgs) => {
-  if (!size) return null;
+  if (!size) {
+    return null;
+  }
   const {sideSwiperReponder} = useMemo(() => {
     return sideSwiperCreator({
       size,
@@ -275,8 +279,6 @@ export const SideSwiper = ({
       {...sideSwiperReponder.panHandlers}
       style={{
         ...StyleSheet.absoluteFillObject,
-        borderWidth: 1,
-        borderColor: 'red',
       }}>
       {children}
     </View>

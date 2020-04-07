@@ -1,10 +1,10 @@
-import {useMemo, ReactNode} from 'react';
+import {ReactNode, useMemo} from 'react';
 import {
   GestureResponderEvent,
   PanResponder,
   PanResponderGestureState,
 } from 'react-native';
-import {SwiperDirection, GestureStatus} from './constants';
+import {Direction, GestureStatus, SwiperDirection} from './constants';
 
 const defaultSwiperDistanceLimit = 50;
 const defaultSwiperSpeedLimit = 1;
@@ -22,6 +22,7 @@ interface GestureArgs {
   onMove?(thisArgs?: Gesture, gestureState?: PanResponderGestureState): void;
   onStop?(thisArgs?: Gesture, gestureState?: PanResponderGestureState): void;
   onSwiper?(thisArgs?: Gesture, directions?: SwiperDirection[]): void;
+  onPress?(thisArgs?: Gesture, gestureState?: PanResponderGestureState): void;
 }
 class Gesture {
   public status: GestureStatus = GestureStatus.SLIENCE;
@@ -51,6 +52,10 @@ class Gesture {
     gestureState?: PanResponderGestureState,
   ) => void;
   public onSwiper: (thisArgs?: Gesture, directions?: SwiperDirection[]) => void;
+  public onPress: (
+    thisArgs?: Gesture,
+    gestureState?: PanResponderGestureState,
+  ) => void;
 
   constructor({
     config = {},
@@ -66,6 +71,9 @@ class Gesture {
     onSwiper = () => {
       return;
     },
+    onPress = () => {
+      return;
+    },
   }: GestureArgs) {
     if (config.distanceLimit) {
       this.swiperDistanceLimit = config.distanceLimit;
@@ -77,6 +85,7 @@ class Gesture {
     this.onMove = onMove;
     this.onStop = onStop;
     this.onSwiper = onSwiper;
+    this.onPress = onPress;
   }
 
   public reset() {
@@ -117,10 +126,10 @@ class Gesture {
   ) {
     this.status = GestureStatus.ACTIVE;
     const {x0, y0, dx, dy, vx, vy} = gestureState;
-    const {locationX, locationY} = evt.nativeEvent;
+    const {pageX, pageY} = evt.nativeEvent;
     this.origin = [x0, y0];
     this.originTimestamp = evt.nativeEvent.timestamp;
-    this.relativeOrigin = [locationX, locationY];
+    this.relativeOrigin = [pageX, pageY];
     this.displacement = [dx, dy];
     this.dispatchDirection(dx, dy, vx, vy);
     this.onStart(this, gestureState);
@@ -131,8 +140,9 @@ class Gesture {
     this.displacement = [dx, dy];
     this.dispatchDirection(dx, dy, vx, vy);
     if (evt.nativeEvent.timestamp - this.originTimestamp > defaultTimeGap) {
-      if (Math.abs(dx) > defaultDistance || Math.abs(dy) > defaultDistance)
+      if (Math.abs(dx) > defaultDistance || Math.abs(dy) > defaultDistance) {
         this.onMove(this, gestureState);
+      }
     }
   }
 
@@ -147,6 +157,7 @@ class Gesture {
       v => v !== SwiperDirection.SLIENCE,
     );
     this.onStop(this, gestureState);
+    this.onPress(this, gestureState);
     if (directions.length) {
       this.onSwiper(this, directions);
     }
@@ -171,7 +182,7 @@ const gestureHook = ({
         onStartShouldSetPanResponder: () => true,
         onStartShouldSetPanResponderCapture: (evt, gestureState) => false,
         onMoveShouldSetPanResponder: () => true,
-        onMoveShouldSetPanResponderCapture: () => true,
+        onMoveShouldSetPanResponderCapture: () => false,
         onPanResponderGrant: (evt, gestureState) => {
           gesture.start(gestureState, evt);
         },
@@ -199,7 +210,7 @@ const defaultBoundary = 120; // 响应侧边滑动的最大尺寸
 
 export interface SideSwiperCreatorArgs {
   size: {width?: number; height?: number};
-  onSwiper: (direction: SwiperDirection) => void;
+  onSwiper?: (direction: SwiperDirection) => void;
   config?: GestureArgs;
   boundary?: number;
   children?: ReactNode;
@@ -207,7 +218,9 @@ export interface SideSwiperCreatorArgs {
 
 export const sideSwiperCreator = ({
   size,
-  onSwiper,
+  onSwiper = () => {
+    return;
+  },
   config = {},
   boundary = defaultBoundary,
 }: SideSwiperCreatorArgs) => {
